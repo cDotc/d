@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>বিতর্ক পোস্টার ও স্ক্রিপ্ট - বাল্যবিবাহের প্রধান কারণ দারিদ্র্য</title>
+
+  <!-- Google Fonts Import -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* CSS Variables for Script Themes */
+    :root {
+      /* Theme 1: Blue (সূচনা, পরিচয় ও অবস্থান) */
+      --blue-bg: #f0f7ff;
+      --blue-border: #93c5fd;
+      --blue-accent: #1d4ed8;
+      --blue-dark: #1e3a8a;
+      --blue-hl-bg: #dbeafe;
+      --blue-hl-text: #1e40af;
+
+      /* Theme 2: Green (মূল পয়েন্ট, Reference, Evidence & Meaning Tag) */
+      --green-bg: #f0fdf4;
+      --green-border: #86efac;
+      --green-accent: #15803d;
+      --green-dark: #14532d;
+      --green-hl-bg: #dcfce7;
+      --green-hl-text: #166534;
+
+      /* Theme 3: Red (প্রতিপক্ষের বক্তব্য, প্রশ্ন ও যৌক্তিক খণ্ডন) */
+      --red-bg: #fef2f2;
+      --red-border: #fca5a5;
+      --red-accent: #b91c1c;
+      --red-dark: #7f1d1d;
+      --red-hl-bg: #fee2e2;
+      --red-hl-text: #991b1b;
+
+      /* Theme 4: Yellow/Golden (সারসংক্ষেপ, চূড়ান্ত বক্তব্য ও সমাপ্তি) */
+      --yellow-bg: #fffbeb;
+      --yellow-border: #fde047;
+      --yellow-accent: #b45309;
+      --yellow-dark: #78350f;
+      --yellow-hl-bg: #fef3c7;
+      --yellow-hl-text: #92400e;
+
+      /* General Styles */
+      --text-main: #27272a;
+      --page-padding: 20mm 20mm 20mm 20mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Hind Siliguri', 'Noto Sans Bengali', 'Plus Jakarta Sans', sans-serif;
+      background-color: #cbd5e1;
+      color: var(--text-main);
+      font-size: 15.5px;
+      line-height: 1.8;
+      word-spacing: 0.5px;
+    }
+
+    /* Outer Container for Web Viewing */
+    .document-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+    }
+
+    /* Strict A4 Poster Styling */
+    .a4-poster {
+      width: 210mm;
+      height: 297mm;
+      position: relative;
+      background: radial-gradient(circle at 20% 15%, #ffffff 0%, #f0f6ff 50%, #e8f1fd 100%);
+      overflow: hidden;
+      color: #0f172a;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16mm 16mm 14mm 16mm;
+      margin-bottom: 30px;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    /* Poster Tech Grid & Glow Orbs */
+    .tech-grid-light {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(2, 132, 199, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2, 132, 199, 0.05) 1px, transparent 1px);
+      background-size: 10mm 10mm;
+      pointer-events: none;
+    }
+
+    .glow-orb-light-1 {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .glow-orb-light-2 {
+      position: absolute;
+      bottom: 40px;
+      left: -80px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Speaker Card Styles */
+    .speaker-section-top {
+      position: relative;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .circle-photo-wrapper {
+      position: relative;
+      width: 185px;
+      height: 185px;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .outer-orbit-ring {
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 2px dashed rgba(2, 132, 199, 0.35);
+      animation: spin 35s linear infinite;
+    }
+
+    .inner-glow-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #6366f1, #38bdf8);
+      padding: 4px;
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25);
+    }
+
+    .photo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #f1f5f9;
+      overflow: hidden;
+      position: relative;
+      border: 3px solid #ffffff;
+    }
+
+    .speaker-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .connected-name-card {
+      position: relative;
+      margin-left: -35px;
+      padding: 20px 24px 20px 48px;
+      background: linear-gradient(110deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+      border-left: none;
+      border-radius: 0 24px 24px 0;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      flex-grow: 1;
+      z-index: 10;
+    }
+
+    .card-bridge-accent {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 65%;
+      background: linear-gradient(to bottom, #0284c7, #6366f1);
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+      border-radius: 3px;
+    }
+
+    .bengali-title {
+      font-family: 'Hind Siliguri', sans-serif;
+      line-height: 1.25;
+    }
+
+    .english-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .topic-card-light {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 246, 255, 0.9) 100%);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      border-left: 5px solid #0284c7;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.06);
+      border-radius: 0 20px 20px 0;
+    }
+
+    .highlight-danger-light {
+      color: #e11d48;
+      font-weight: 800;
+    }
+
+    .highlight-blessing-light {
+      color: #0284c7;
+      font-weight: 800;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Script Page Dimensions */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: var(--page-padding);
+      background-color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .page-content {
+      flex-grow: 1;
+    }
+
+    .document-header {
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .segment-title-box {
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+      font-size: 17.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      border-left: 6px solid;
+    }
+
+    .seg-blue {
+      background-color: var(--blue-bg);
+      border-color: var(--blue-accent);
+      color: var(--blue-dark);
+    }
+
+    .seg-green {
+      background-color: var(--green-bg);
+      border-color: var(--green-accent);
+      color: var(--green-dark);
+    }
+
+    .seg-red {
+      background-color: var(--red-bg);
+      border-color: var(--red-accent);
+      color: var(--red-dark);
+    }
+
+    .seg-yellow {
+      background-color: var(--yellow-bg);
+      border-color: var(--yellow-accent);
+      color: var(--yellow-dark);
+    }
+
+    .script-paragraph {
+      margin-bottom: 12px;
+      text-align: justify;
+      text-justify: inter-word;
+      color: #1f2937;
+      break-inside: avoid;
+    }
+
+    .cluster-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+
+    .cluster-title {
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 6px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cluster-item {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      font-size: 14.5px;
+      line-height: 1.75;
+    }
+
+    .cluster-item::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      color: var(--green-accent);
+      font-weight: bold;
+    }
+
+    /* Highlight Tags & Keywords */
+    .hl-blue-ref {
+      background-color: var(--blue-hl-bg);
+      color: var(--blue-hl-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid var(--blue-border);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue-kw {
+      background-color: #eff6ff;
+      color: var(--blue-dark);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--blue-accent);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green-ref {
+      background-color: var(--green-hl-bg);
+      color: var(--green-hl-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid var(--green-border);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green-kw {
+      background-color: #f0fdf4;
+      color: var(--green-dark);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--green-accent);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-red-ref {
+      background-color: var(--red-hl-bg);
+      color: var(--red-hl-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid var(--red-border);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-red-kw {
+      background-color: #fef2f2;
+      color: var(--red-dark);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--red-accent);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-yellow-ref {
+      background-color: var(--yellow-hl-bg);
+      color: var(--yellow-hl-text);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid var(--yellow-border);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-yellow-kw {
+      background-color: #fffbeb;
+      color: var(--yellow-dark);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--yellow-accent);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .page-footer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+      margin-top: auto;
+    }
+
+    .page-number-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid #64748b;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      background-color: #ffffff;
+    }
+
+    /* Print Configuration */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: none !important;
+        padding: 0 !important;
+      }
+      .document-container {
+        padding: 0 !important;
+      }
+      .a4-poster, .page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        border: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="document-container">
+
+    <!-- ==================== SECTION 1: POSTER / COVER ==================== -->
+    <div class="a4-poster">
+        
+        <!-- Light Theme Ambient Layers -->
+        <div class="tech-grid-light"></div>
+        <div class="glow-orb-light-1"></div>
+        <div class="glow-orb-light-2"></div>
+
+        <!-- Decorative Top Corner Accent -->
+        <div class="absolute top-0 right-0 w-36 h-36 pointer-events-none opacity-25">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#0284c7">
+                <circle cx="100" cy="0" r="80" stroke-width="1.5" stroke-dasharray="4 4" />
+                <circle cx="100" cy="0" r="60" stroke-width="1.5" />
+                <circle cx="100" cy="0" r="40" stroke-width="1" />
+            </svg>
+        </div>
+
+        <!-- HEADER SECTION -->
+        <header class="relative z-10 pt-2">
+            <div class="flex items-center justify-between border-b border-sky-200 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-sky-50 border border-sky-300 flex items-center justify-center shadow-sm">
+                        <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="english-sub text-xs font-bold text-sky-600 uppercase tracking-wider">Official Speaker Presentation</p>
+                        <h2 class="english-sub text-sm font-extrabold tracking-widest text-slate-800">INTER-SCHOOL DEBATE 2026</h2>
+                    </div>
+                </div>
+                
+                <div class="px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-300 text-[11px] english-sub font-bold text-sky-700 tracking-wider">
+                    DEBATE SCRIPT
+                </div>
+            </div>
+        </header>
+
+        <!-- SPEAKER SECTION -->
+        <section class="speaker-section-top relative z-10">
+            
+            <div class="circle-photo-wrapper">
+                <div class="outer-orbit-ring"></div>
+                <div class="inner-glow-ring">
+                    <div class="photo-inner">
+                        <img 
+                            class="speaker-img" 
+                            src="https://lh3.googleusercontent.com/d/11AkbD2zx3DDs5_1ZtuMg0m8v4jpo_mD1" 
+                            alt="Sharna Akter"
+                            onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=11AkbD2zx3DDs5_1ZtuMg0m8v4jpo_mD1&sz=w800';"
+                        />
+                    </div>
+                </div>
+                
+                <div class="absolute -top-1 right-2 w-3.5 h-3.5 rounded-full bg-sky-500 border-2 border-white shadow-md"></div>
+                <div class="absolute bottom-2 -left-1 w-3 h-3 rounded-full bg-indigo-500 border-2 border-white shadow-md"></div>
+            </div>
+
+            <div class="connected-name-card">
+                <div class="card-bridge-accent"></div>
+                
+                <div class="flex flex-col">
+                    <div class="inline-flex items-center gap-1.5 mb-1.5">
+                        <span class="px-3 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-[11px] font-bold text-sky-700 english-sub">
+                            2nd Speaker • Class 10
+                        </span>
+                    </div>
+
+                    <h3 class="bengali-title text-3xl font-extrabold text-slate-900 tracking-tight">
+                        স্বর্ণা আক্তার
+                    </h3>
+
+                    <p class="english-sub text-xs font-bold text-sky-600 tracking-wider uppercase mt-0.5">
+                        Sharna Akter
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- DEBATE TOPIC SECTION -->
+        <section class="relative z-10 my-auto py-2">
+            
+            <div class="flex items-center gap-2 mb-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-slate-600 tracking-wide">বিতর্কের বিষয়বস্তু (Debate Topic)</span>
+                <div class="h-[1px] flex-grow bg-gradient-to-r from-sky-300 to-transparent"></div>
+            </div>
+
+            <div class="topic-card-light p-7 relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-6 text-sky-900/5 pointer-events-none select-none">
+                    <svg class="w-36 h-36" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                </div>
+
+                <h1 class="bengali-title text-[26px] font-bold leading-relaxed text-slate-900 tracking-normal">
+                    “<span class="highlight-danger-light">অসচেতনতা নয়</span>, <span class="highlight-blessing-light">চরম দারিদ্র্যই</span> আমাদের সমাজে বাল্যবিবাহের <span class="text-sky-600 font-extrabold">প্রধান কারণ</span>”
+                </h1>
+
+                <div class="mt-5 pt-3.5 border-t border-sky-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-sky-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        পক্ষ দল — ২য় বক্তার বক্তব্য ও যুক্তি সংকলন
+                    </span>
+                    <span class="english-sub text-[11px] text-sky-700 font-bold uppercase tracking-widest bg-sky-50 px-2 py-0.5 rounded border border-sky-200">Affirmative Side</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- POSTER FOOTER SECTION -->
+        <footer class="relative z-10 border-t border-sky-200/80 pt-4 pb-1">
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="p-3 rounded-xl bg-white border border-sky-100 shadow-sm flex flex-col items-center justify-center">
+                    <svg class="w-4 h-4 text-sky-600 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    <span class="text-[10px] text-slate-500 block font-semibold">আয়োজক</span>
+                    <span class="bengali-title text-xs font-bold text-slate-800">কেন্দ্রীয় বিতর্ক পরিষদ</span>
+                </div>
+
+                <div class="p-3 rounded-xl bg-white border border-sky-100 shadow-sm flex flex-col items-center justify-center">
+                    <svg class="w-4 h-4 text-sky-600 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-[10px] text-slate-500 block font-semibold">অবস্থান</span>
+                    <span class="bengali-title text-xs font-bold text-slate-800">পক্ষ দল (২য় বক্তা)</span>
+                </div>
+
+                <div class="p-3 rounded-xl bg-white border border-sky-100 shadow-sm flex flex-col items-center justify-center">
+                    <svg class="w-4 h-4 text-sky-600 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-[10px] text-slate-500 block font-semibold">শ্রেণি</span>
+                    <span class="bengali-title text-xs font-bold text-slate-800">দশম শ্রেণি (Class 10)</span>
+                </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between text-[9px] text-slate-500 english-sub font-semibold">
+                <span>INTER-SCHOOL DEBATE CHAMPIONSHIP SERIES</span>
+                <span class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                    SPOTLIGHT SERIES
+                </span>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!-- ==================== SECTION 2: SCRIPT PAGE 1 ==================== -->
+    <div class="page">
+      <div class="page-content">
+        
+        <div class="document-header">
+          <span>জাতীয় বিতর্ক প্রতিযোগিতা — পক্ষ দল</span>
+          <span>বক্তা: স্বর্ণা আক্তার (২য় বক্তা)</span>
+        </div>
+
+        <!-- SEGMENT 1 -->
+        <div class="segment-title-box seg-blue">
+          ১. 🎤 সূচনা, পরিচয় ও অবস্থান
+        </div>
+
+        <p class="script-paragraph">
+          সম্মানিত সভাপতি, বিচারকমণ্ডলী, সময় নিয়ন্ত্রক, উপস্থিত সুধীবৃন্দ এবং আমার প্রতিপক্ষ বন্ধুগণ—সবাইকে শুভাহ্ন।
+        </p>
+
+        <p class="script-paragraph">
+          আমি <span class="hl-blue-kw">স্বর্ণা আক্তার</span>, পক্ষ দলের <span class="hl-blue-kw">২য় বক্তা</span> হিসেবে আজকে আপনাদের সামনে দাঁড়িয়েছি একটি স্পষ্ট, নিষ্ঠুর এবং অস্বীকার করার উপায়হীন বাস্তবতাকে পুনর্প্রতিষ্ঠা করতে। আমাদের প্রথম বক্তা ইতিমধ্যেই বেশ কিছু গুরুত্বপূর্ণ বিশ্লেষণের মাধ্যমে আমাদের দলের অবস্থান স্পষ্ট করে গিয়েছেন। তিনি দেখিয়েছেন কীভাবে একটি সমাজের সামাজিক কাঠামোর পেছনে চালিকাশক্তি হিসেবে কাজ করে তার অর্থনৈতিক অবস্থা।
+        </p>
+
+        <p class="script-paragraph">
+          আমি ১ম বক্তার বক্তব্যকে ভিত্তি ধরে, বস্তুনিষ্ঠ তথ্য, সাম্প্রতিক তথ্য-প্রমাণ এবং প্রতিপক্ষের যুক্তি খণ্ডনের মাধ্যমে এটি প্রমাণ করব যে—<span class="hl-blue-kw">অসচেতনতা নয়, চরম দারিদ্র্যই আমাদের সমাজে বাল্যবিবাহের প্রধান কারণ</span>।
+        </p>
+
+        <p class="script-paragraph">
+          সভাপতি মহোদয়, বিতর্কের মূল দ্বন্দ্বে প্রবেশের আগে আমাদের একটি বিষয় খুব পরিষ্কার হওয়া দরকার। আজকে আমাদের প্রতিপক্ষ বন্ধুগণ হয়তো দেখানোর চেষ্টা করবেন—মানুষ সচেতন নয়, তারা বাল্যবিবাহের কুফল বোঝে না, তাই মেয়েকে অল্প বয়সে বিয়ে দিয়ে দেয়। কিন্তু আমাদের প্রশ্ন খুব সরল: বাল্যবিবাহ কি স্রেফ তথ্য না জানার বা অজ্ঞতার ফল, নাকি চরম দারিদ্র্য ও অর্থনৈতিক চাপ পরিবারকে বাধ্য করে এই সিদ্ধান্ত নিতে?
+        </p>
+
+        <p class="script-paragraph">
+          আমরা পক্ষে দল কিন্তু বলছি না যে সমাজে অসচেতনতা একেবারেই অনুপস্থিত। সচেতনতার অভাব অবশ্যই একটি সহায়ক উপাদান। কিন্তু যখন প্রশ্ন ওঠে "প্রধান কারণ" কোনটি—তখন আমাদের দেখতে হবে চরম দারিদ্র্য কীভাবে একটি পরিবারের বেঁচে থাকার মৌলিক ভিত্তিগুলোকে চুরমার করে দেয়। দারিদ্র্য কীভাবে খাদ্য নিরাপত্তা, শিক্ষার খরচ, সামাজিক সুরক্ষা এবং ভবিষ্যৎ জীবিকাকে এমন এক সংকটের মুখে দাঁড় করায়, যেখানে কন্যা সন্তানকে বিয়ে দেওয়াটা কোনো ইচ্ছাকৃত পছন্দ থাকে না—বরং টিকে থাকার এক নির্মম কৌশল বা '<span class="hl-blue-ref">coping mechanism</span>' হয়ে ওঠে।
+        </p>
+
+        <p class="script-paragraph">
+          আজকে আমার বক্তব্যে আমি তিনটি প্রধান দিক উন্মোচন করব: প্রথমত, অর্থনৈতিক সংকট এবং পরিবারের ব্যয় কমানোর প্রবণতা; দ্বিতীয়ত, জলবায়ু সংকট ও দুর্যোগজনিত দারিদ্র্য; এবং তৃতীয়ত, শিক্ষা অর্জনের সুযোগ ও সামাজিক সুরক্ষার অভাব কীভাবে চরম দারিদ্র্যের সঙ্গেই ওতপ্রোতভাবে জড়িত। আসুন, বাস্তবতার মুখোমুখি হই।
+        </p>
+
+      </div>
+
+      <div class="page-footer">
+        <div class="page-number-circle">1</div>
+      </div>
+    </div>
+
+
+    <!-- ==================== SECTION 3: SCRIPT PAGE 2 ==================== -->
+    <div class="page">
+      <div class="page-content">
+
+        <div class="document-header">
+          <span>জাতীয় বিতর্ক প্রতিযোগিতা — পক্ষ দল</span>
+          <span>রেফারেন্স ব্যাংক ও আর্গুমেন্ট ক্লাস্টার</span>
+        </div>
+
+        <!-- SEGMENT 2 -->
+        <div class="segment-title-box seg-green">
+          ২. 🧠 মূল পয়েন্ট, Reference, Evidence & Meaning Tag
+        </div>
+
+        <p class="script-paragraph" style="font-size: 14px; color: #475569; margin-bottom: 10px; font-style: italic;">
+          (বক্তাতাদের দ্রুত ব্যবহারের জন্য রেফারেন্স ব্যাঙ্ক ও আর্গুমেন্ট ক্লাস্টার)
+        </p>
+
+        <!-- Cluster 1 -->
+        <div class="cluster-box">
+          <div class="cluster-title">
+            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            ক্লাস্টার ১: অর্থনৈতিক অসহায়ত্ব ও পরিবারের ব্যয় সংকোচন
+          </div>
+          <div class="cluster-item">
+            বাংলাদেশে সবচেয়ে দরিদ্র ২০% পরিবারের মেয়েদের বাল্যবিবাহের হার সবচেয়ে ধনী ২০% পরিবারের তুলনায় দ্বিগুণ বা তারও বেশি — <span class="hl-green-ref">BDHS 2017-18 / BBS / UNICEF Report</span> <span class="hl-green-kw">[দারিদ্র্যের প্রভাব]</span>
+          </div>
+          <div class="cluster-item">
+            চরম দারিদ্র্যপীড়িত পরিবারে কন্যাসন্তানকে একটি অর্থনৈতিক চাপ হিসেবে দেখা হয় এবং বিয়ে দেওয়ার মাধ্যমে পরিবারের আহারসংস্থান ও ব্যয়ের একটি অংশ কমানোর চেষ্টা করা হয় — <span class="hl-green-ref">World Bank Gender Study</span> <span class="hl-green-kw">[অর্থনৈতিক সংকট]</span>
+          </div>
+          <div class="cluster-item">
+            করোনাকালীন ও পরবর্তী অর্থনৈতিক মন্দায় দারিদ্র্য বৃদ্ধি পাওয়ায় বাংলাদেশে বাল্যবিবাহের হার উল্লেখযোগ্যভাবে বৃদ্ধি পেয়েছিল — <span class="hl-green-ref">UNICEF & Manusher Jonno Foundation (MJF) Survey 2020-2021</span> <span class="hl-green-kw">[সংকটের চাপ]</span>
+          </div>
+        </div>
+
+        <!-- Cluster 2 -->
+        <div class="cluster-box">
+          <div class="cluster-title">
+            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            ক্লাস্টার ২: শিক্ষা-বঞ্চনা ও প্রত্যক্ষ/পরোক্ষ খরচ
+          </div>
+          <div class="cluster-item">
+            বিনামূল্যে প্রাথমিক শিক্ষার সুযোগ থাকলেও মাধ্যমিক স্তরে আনুষঙ্গিক খরচ (খাতা, কলম, যাতায়াত, প্রাইভেট) বহন করতে না পেরে দরিদ্র পরিবারের মেয়েরা ড্রপআউট বা ঝরে পড়ে — <span class="hl-green-ref">Bangladesh Education Statistics (BANBEIS)</span> <span class="hl-green-kw">[শিক্ষা-বঞ্চনা]</span>
+          </div>
+          <div class="cluster-item">
+            শিক্ষা থেকে ঝরে পড়া তরুণীদের বাল্যবিবাহের ঝুঁকি শিক্ষা চালিয়ে যাওয়া মেয়েদের তুলনায় বহুগুণ বেশি — <span class="hl-green-ref">UNESCO & UNFPA Report</span> <span class="hl-green-kw">[ঝুঁকি বৃদ্ধি]</span>
+          </div>
+        </div>
+
+        <!-- Cluster 3 -->
+        <div class="cluster-box">
+          <div class="cluster-title">
+            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            ক্লাস্টার ৩: জলবায়ু পরিবর্তন, বাস্তুচ্যুতি ও দুর্যোগভিত্তিক দারিদ্র্য
+          </div>
+          <div class="cluster-item">
+            বাংলাদেশে নদীভাঙন, ঘূর্ণিঝড় এবং উপকূলীয় এলাকায় বাস্তুচ্যুত ও আকস্মিক দারিদ্র্যের শিকার পরিবারগুলোতে বাল্যবিবাহ সুরক্ষার কৌশল হিসেবে ব্যবহৃত হয় — <span class="hl-green-ref">Human Rights Watch (HRW) Report "Marry Before Your House is Swept Away"</span> <span class="hl-green-kw">[জলবায়ু সংকট]</span>
+          </div>
+          <div class="cluster-item">
+            প্রাকৃতিক দুর্যোগের পর উপকূলীয় এলাকায় চরম আর্থিক দৈন্য ও নিরাপত্তার অভাবে অপ্রাপ্তবয়স্ক মেয়েদের দ্রুত বিয়ে দেওয়ার প্রবণতা বাড়ে — <span class="hl-green-ref">UNICEF Bangladesh Climate Study</span> <span class="hl-green-kw">[দুর্যোগজনিত চাপ]</span>
+          </div>
+        </div>
+
+        <!-- Cluster 4 -->
+        <div class="cluster-box">
+          <div class="cluster-title">
+            <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            ক্লাস্টার ৪: সামাজিক নিরাপত্তা, যৌতুক ও দারিদ্র্যের মিথস্ক্রিয়া
+          </div>
+          <div class="cluster-item">
+            মেয়েদের বয়স বাড়লে যৌতুকের পরিমাণ বাড়তে পারে—এমন আশঙ্কায় দরিদ্র পরিবারগুলো কম বয়সে বিয়ে দিয়ে আর্থিক ক্ষতি কমানোর চেষ্টা করে — <span class="hl-green-ref">BBS & Social Research Papers</span> <span class="hl-green-kw">[যৌতুকের চাপ]</span>
+          </div>
+          <div class="cluster-item">
+            আইন জানা সত্ত্বেও বহু পরিবার কেবল ক্ষুধা ও চরম আর্থিক অনটনের কারণে গোপনে বা ভুয়া সনদ দিয়ে বিয়ে দেয় — <span class="hl-green-ref">UNFPA Child Marriage Assessment</span> <span class="hl-green-kw">[আইন বনাম খাদ্য]</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="page-footer">
+        <div class="page-number-circle">2</div>
+      </div>
+    </div>
+
+
+    <!-- ==================== SECTION 4: SCRIPT PAGE 3 ==================== -->
+    <div class="page">
+      <div class="page-content">
+
+        <div class="document-header">
+          <span>জাতীয় বিতর্ক প্রতিযোগিতা — পক্ষ দল</span>
+          <span>প্রতিপক্ষের বক্তব্য ও যৌক্তিক খণ্ডন</span>
+        </div>
+
+        <!-- SEGMENT 3 -->
+        <div class="segment-title-box seg-red">
+          ৩. ⚔️ প্রতিপক্ষের বক্তব্য, প্রশ্ন ও যৌক্তিক খণ্ডন
+        </div>
+
+        <p class="script-paragraph">
+          সভাপতি মহোদয়, প্রতিপক্ষ দল এতক্ষণে নিশ্চয়ই কিছু যুক্তি সাজিয়েছেন। আসুন তাদের মূল দাবিগুলোকে একটি একটি করে ব্যবচ্ছেদ করি।
+        </p>
+
+        <p class="script-paragraph">
+          <span class="hl-red-kw">প্রতিপক্ষের সম্ভাব্য দাবি ১:</span> "মানুষের মধ্যে সচেতনতার অভাব রয়েছে। তারা আইন বোঝে না, বাল্যবিবাহের স্বাস্থ্যঝুঁকি বোঝে না। সচেতনতা বাড়ালেই বাল্যবিবাহ বন্ধ হবে।"
+        </p>
+        
+        <p class="script-paragraph" style="padding-left: 14px; border-left: 3px solid var(--red-border);">
+          • <span class="hl-red-kw">খণ্ডন ও যুক্তি:</span> প্রতিপক্ষ বন্ধুদের এই দাবি আংশিক সত্য কিন্তু বিতর্কের মূল প্রশ্নের উত্তর নয়। সচেতনতা কেবল তখনই কাজ করে, যখন মানুষের অর্থনৈতিক বিকল্প থাকে। একজন বাবা জানেন ১৮ বছরের আগে বিয়ে দেওয়া অন্যায় এবং স্বাস্থ্য ঝুঁকিপূর্ণ। কিন্তু ঘরে যখন চাল নেই, প্রাকৃতিক দুর্যোগে যখন ঘরবাড়ি নদীগর্ভে বিলীন, মেয়ে যখন স্কুলে যাওয়ার খরচ পাচ্ছে না—তখন সচেতনতা পেটের ক্ষুধা মেটাতে পারে না।<br/>
+          • <span class="hl-red-ref">তাত্ত্বিক পার্থক্য:</span> "কোনো কারণের উপস্থিতি" আর "কোনো কারণের প্রধান চালিকাশক্তি হওয়া"—এক জিনিস নয়। সচেতনতার অভাব যদি প্রধান কারণ হতো, তবে সচেতনতা মূলক প্রচারণা বাড়ানোর সাথে সাথে দরিদ্র এলাকায় বাল্যবিবাহ শূন্যে নেমে আসত। কিন্তু বাস্তব সত্য হলো, অর্থনৈতিক সচ্ছলতা না আসলে কেবল মাইকিং করে বাল্যবিবাহ রোখা যায় না।
+        </p>
+
+        <p class="script-paragraph">
+          <span class="hl-red-kw">প্রতিপক্ষের সম্ভাব্য দাবি ২:</span> "স্বচ্ছল বা ধনী পরিবারেও তো বাল্যবিবাহ হয়, আবার অনেক দরিদ্র পরিবার তো মেয়েকে ছোট বয়সে বিয়ে দেয় না! তাই দারিদ্র্যকে প্রধান কারণ বলা যাবে না।"
+        </p>
+
+        <p class="script-paragraph" style="padding-left: 14px; border-left: 3px solid var(--red-border);">
+          • <span class="hl-red-kw">খণ্ডন ও যুক্তি:</span> এটি একটি যৌক্তিক ভ্রান্তি বা '<span class="hl-red-ref">exception fallacy</span>'। পরিসংখ্যান আমাদের কী বলে? <span class="hl-red-ref">BBS</span> এবং <span class="hl-red-ref">UNICEF</span>-এর ডাটা স্পষ্ট দেখায়—বাংলাদেশের দরিদ্রতম জনগোষ্ঠীর (Lowest Wealth Quintile) মধ্যে বাল্যবিবাহের হার সর্বোচ্চ এবং ধনী জনগোষ্ঠীর (Highest Wealth Quintile) মধ্যে তা সর্বনিম্ন। দু-একটি ব্যতিক্রম কখনো সার্বিক সামাজিক বাস্তবতার নিয়মকে খণ্ডন করতে পারে না। মূল প্রশ্ন হলো—বৃহত্তর জনগোষ্ঠীর ক্ষেত্রে সিদ্ধান্তকে সবচেয়ে বেশি বাধ্য করে কোন বিষয়টি? উত্তর নিঃসন্দেহে দারিদ্র্য।
+        </p>
+
+        <div style="background-color: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; padding: 12px 16px; margin-top: 14px;">
+          <p class="script-paragraph" style="font-weight: 700; color: var(--red-dark); margin-bottom: 6px;">
+            প্রতিপক্ষের কাছে আমাদের শাণিত প্রশ্নমালা:
+          </p>
+          <p class="script-paragraph" style="margin-bottom: 6px; font-size: 14.5px;">
+            <span class="hl-red-kw">১. প্রথম প্রশ্ন:</span> যদি অসচেতনতাই বাল্যবিবাহের প্রধান কারণ হয়, তবে প্রাকৃতিক দুর্যোগ, নদীভাঙন বা করোনাকালীন আর্থিক সংকটের মতো চরম অর্থনৈতিক বিপর্যয়ের সময়ই কেন বাল্যবিবাহের হার রাতারাতি বহুগুণ বেড়ে যায়? রাতারাতি কি মানুষের সচেতনতা কমে গিয়েছিল, নাকি চরম দারিদ্র্য তাদের বাধ্য করেছিল?
+          </p>
+          <p class="script-paragraph" style="margin-bottom: 0; font-size: 14.5px;">
+            <span class="hl-red-kw">২. দ্বিতীয় প্রশ্ন:</span> আপনারা বলছেন আইন ও স্বাস্থ্য সচেতনতার অভাবই মূল। বাংলাদেশের প্রত্যন্ত অঞ্চলের যে পরিবারটি জানে ১৮ বছরের নিচে বিয়ে দেওয়া বেআইনি, কিন্তু মেয়ের স্কুলের যাতায়াত খরচ ও পরিবারের আহার জোগাতে ব্যর্থ হয়ে গোপনে বিয়ে দিচ্ছে—সেখানে সমস্যাটি কি জ্ঞানের, নাকি বেঁচে থাকার ক্রাইসিসের?
+          </p>
+        </div>
+
+      </div>
+
+      <div class="page-footer">
+        <div class="page-number-circle">3</div>
+      </div>
+    </div>
+
+
+    <!-- ==================== SECTION 5: SCRIPT PAGE 4 ==================== -->
+    <div class="page">
+      <div class="page-content">
+
+        <div class="document-header">
+          <span>জাতীয় বিতর্ক প্রতিযোগিতা — পক্ষ দল</span>
+          <span>সারসংক্ষেপ ও চূড়ান্ত সিদ্ধান্ত</span>
+        </div>
+
+        <!-- SEGMENT 4 -->
+        <div class="segment-title-box seg-yellow">
+          ৪. 🔥 সারসংক্ষেপ, চূড়ান্ত বক্তব্য ও সমাপ্তি
+        </div>
+
+        <p class="script-paragraph">
+          সভাপতি মহোদয়, আমরা যদি পুরো বিতর্কের কার্যকারণ সম্পর্ক বা '<span class="hl-yellow-ref">Causal Chain</span>' বিশ্লেষণ করি, তবে চিত্রটি অত্যন্ত পরিষ্কার:
+        </p>
+
+        <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-weight: 600; color: #92400e; text-align: center; font-size: 14px;">
+          চরম দারিদ্র্য <span class="text-amber-600">➔</span> অর্থনৈতিক অসহায়ত্ব ও জীবিকার অনিশ্চয়তা <span class="text-amber-600">➔</span> শিক্ষার খরচ বহনে অক্ষমতা ও ড্রপআউট <span class="text-amber-600">➔</span> পরিবারে বাড়তি সুরক্ষার চাপ <span class="text-amber-600">➔</span> বাল্যবিবাহের সিদ্ধান্ত।
+        </div>
+
+        <p class="script-paragraph">
+          এখানে সচেতনতার অভাব একটি সহায়ক প্রেক্ষাপট হতে পারে, কিন্তু সেই সিদ্ধান্তের মূল চালিকাশক্তি বা "<span class="hl-yellow-kw">Triggering Factor</span>" হলো চরম দারিদ্র্য।
+        </p>
+
+        <p class="script-paragraph">
+          আইন করে বাল্যবিবাহ নিষিদ্ধ করা হয়েছে, সামাজিক সচেতনতা বাড়াতে সরকারি-বেসরকারি নানা উদ্যোগ কাজ করছে। মানুষ এখন বাল্যবিবাহের কুফল সম্পর্কে অতীতের চেয়ে অনেক বেশি জানে। কিন্তু তা সত্ত্বেও যখন প্রত্যন্ত অঞ্চলের একটি পরিবার নদীভাঙনে নিঃস্ব হয়ে যায়, তখন তাদের কাছে নীতিবাক্যের চেয়ে বেঁচে থাকার অর্থনৈতিক হিসাবটি বড় হয়ে দাঁড়ায়। <span class="hl-yellow-kw">পেটে ক্ষুধা নিয়ে কোনো সচেতনতাই টিকে থাকতে পারে না।</span>
+        </p>
+
+        <p class="script-paragraph">
+          তাই পক্ষে দল হিসেবে আমরা জোর দিয়ে বলছি—অসচেতনতা নয়, বরং <span class="hl-yellow-kw">কাঠামোগত দারিদ্র্য, অর্থনৈতিক বৈষম্য এবং জীবনধারণের অনিশ্চয়তাই</span> আমাদের সমাজে বাল্যবিবাহ টিকিয়ে রাখার প্রধানতম কারণ। যতক্ষণ না আমরা একটি মেয়ের পরিবারকে অর্থনৈতিক নিরাপত্তা দিতে পারছি, ততক্ষণ কেবল সচেতনতার কথা বলে এই সামাজিক ব্যাধি নির্মূল করা সম্ভব নয়।
+        </p>
+
+        <p class="script-paragraph">
+          আসুন, সচেতনতার বুলি ছেড়ে দারিদ্র্য দূরীকরণের বাস্তবতায় চোখ রাখি।
+        </p>
+
+        <p class="script-paragraph" style="font-weight: 700; color: #78350f; margin-top: 16px;">
+          ধন্যবাদ সভাপতি মহোদয়, ধন্যবাদ বিচারকমণ্ডলী। আমাদের অবস্থান সত্য, আমাদের অবস্থান সুনির্দিষ্ট।
+        </p>
+
+        <p class="script-paragraph" style="font-weight: 800; font-size: 17px; color: #b45309; text-align: center; margin-top: 20px;">
+          জয় হোক যুক্তির। আসসালামু আলাইকুম।
+        </p>
+
+      </div>
+
+      <div class="page-footer">
+        <div class="page-number-circle">4</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
